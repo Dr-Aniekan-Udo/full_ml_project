@@ -15,12 +15,12 @@ from dataclasses import dataclass
 # dataclass to create class variable
 
 # let's create a class to handle input of data 
-# with a decorator (dataclass) which we will only define variables
+# with a dataclass decorator which we will only define variables
 
 @dataclass
 class DataIngestionConfig:
-    # create path to store your raw, training, and test data inside a folodeer called artifact
-    # This can alos be done in a separte file maybe call it data_config, but let's do it here for easy understanding
+    # create path to store your raw, training, and test data inside a folder called artifact
+    # This can also be done in a separate file maybe call it data_config, but let's do it here for easy understanding
     train_data_path: str = os.path.join('artifact', "train.csv")
     test_data_path: str = os.path.join('artifact', "test.csv")
     raw_data_path: str = os.path.join('artifact', "raw_data.csv")
@@ -28,11 +28,11 @@ class DataIngestionConfig:
 # Now let's define our data ingestion class
 class DataIngestion:
     def __init__(self):
-        #initilized our new class with the dataingestioncoifg
+        #initilized our new class with the dataingestionconfig
         self.ingestion_config=DataIngestionConfig()
     
     # create a function that contains the location of the data to ingest i.e local cloud, mongodb, etc
-    # and reads it to the format if to be stored
+    # and reads it to a dataframe format to make it easy to split
     def initiate_data_ingestion(self):
         logging.info('Enters the data Ingestion method and component')
         try:
@@ -42,7 +42,7 @@ class DataIngestion:
 
             # write a script to make a directory if it doesn't exist
             # dirname gets the directory name with respect to the path passed as arguement
-            # exist_ok ensures the folder is not deleted and recretae if it already existed 
+            # exist_ok ensures the folder is not deleted and recreate if it already existed 
             
             logging.info('saving the raw data')
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
@@ -70,8 +70,3 @@ class DataIngestion:
         except Exception as e:
             raise CustomException(e,sys)
         
-# try it out
-if __name__=="__main__":
-    # create a Dataingestion object and access the data ingestion function
-    obj = DataIngestion()
-    obj.initiate_data_ingestion()
