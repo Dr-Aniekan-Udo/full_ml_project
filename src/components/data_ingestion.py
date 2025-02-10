@@ -14,6 +14,7 @@ from dataclasses import dataclass
 # sklearn for splitting data
 # dataclass to create class variable
 
+
 # let's create a class to handle input of data 
 # with a dataclass decorator which we will only define variables
 
